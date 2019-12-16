@@ -59,8 +59,10 @@ type ErrorMessage struct {
 // =============================================
 
 type ConnectionObject struct {
-	Socket websocket.Conn
-	Client ClientPayload
+	Socket       *websocket.Conn
+	Client       ClientPayload
+	Recvd        chan []byte
+	Disconnected bool
 }
 
 type ChannelObject struct {
@@ -96,7 +98,7 @@ func (h SinglePageAppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) 
 
 	// check whether a file exists at the given path
 	_, err = os.Stat(path)
-	log.Printf("Checking for: %s", path)
+	//log.Printf("Checking for: %s", path)
 	if os.IsNotExist(err) {
 		// file does not exist, serve index.html
 		http.ServeFile(w, r, filepath.Join(h.StaticPath, h.IndexPath))
@@ -111,7 +113,7 @@ func (h SinglePageAppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) 
 	}
 
 	// otherwise, use http.FileServer to serve the static dir
-	log.Printf("\tServing: %s", path)
+	//log.Printf("\tServing: %s", path)
 	http.FileServer(http.Dir(h.StaticPath)).ServeHTTP(w, r)
 }
 

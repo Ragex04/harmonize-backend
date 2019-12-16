@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"harmonize-server/structures"
 	"log"
+	"math/rand"
 	"net/http"
 	"time"
 
@@ -16,15 +17,43 @@ const PORT int = 8000
 
 var upgrader = websocket.Upgrader{}
 
+func RecvMsgs(con *structures.ConnectionObject) {
+	for {
+		_, msg, err := con.Socket.ReadMessage()
+		if err != nil {
+			log.Printf("Error reading from ws from client: %d", con.Client.Id)
+		}
+		log.Printf("Got: %s", string(msg))
+		con.Recvd <- msg
+
+	}
+}
+
+func handleConnection(con *structures.ConnectionObject) {
+	go RecvMsgs(con)
+}
+
 func createNewWebsocket(w http.ResponseWriter, r *http.Request) {
-	log.Printf("New WS Requested!!")
+
 	// allow anyone lol
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	ws.Close()
+
+	con := structures.ConnectionObject{
+		ws,
+		structures.ClientPayload{
+			rand.Intn(int(1000000)),
+			-1,
+			"TmpClient",
+		},
+		make(chan []byte, 10),
+		false,
+	}
+	log.Printf("New WS Requested!! Added client: %d", con.Client.Id)
+	handleConnection(&con)
 }
 
 func main() {
