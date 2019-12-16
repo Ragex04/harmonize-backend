@@ -72,10 +72,10 @@ type ConnectionObject struct {
 }
 
 type ChannelObject struct {
-	Channel       ChannelPayload
-	SongStartTime int64
-	Song          SongPayload
-	Users         []ConnectionObject
+	Channel       ChannelPayload     `json:"channel"`
+	SongStartTime int64              `json:"start_time"`
+	Song          SongPayload        `json:"song"`
+	Users         []ConnectionObject `json:"users"`
 }
 
 type SinglePageAppHandler struct {
