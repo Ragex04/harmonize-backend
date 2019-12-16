@@ -166,7 +166,7 @@ func StartSyncPackets(channelId int, con *structures.ConnectionObject) {
 		}
 
 		data := make(map[string]interface{})
-		data["type"] = "TIME/SYNC"
+		data["type"] = "SYNC/PACKET"
 		data["payload"] = pkt
 
 		//bin_data, _ := json.Marshal(data)

@@ -51,8 +51,8 @@ type ChannelPayload struct {
 
 type TimeSyncPayload struct {
 	ChannelId    int   `json:"channel_id"`
-	SongLocation int64 `json:"song_location"`
-	ServerTime   int64 `json:"server_time"`
+	SongLocation int64 `json:"timecode"`
+	ServerTime   int64 `json:"timestamp"`
 }
 
 type ErrorMessage struct {
