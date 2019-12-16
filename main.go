@@ -36,6 +36,7 @@ func createNewWebsocket(w http.ResponseWriter, r *http.Request) {
 		},
 		make(chan map[string]interface{}, 10),
 		false,
+		false,
 	}
 	log.Printf("New WS Requested!! Added client: %d", con.Client.Id)
 	go connections.HandleNewConnection(&con)

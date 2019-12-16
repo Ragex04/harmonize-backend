@@ -9,7 +9,7 @@
                 "art": "https://i1.sndcdn.com/artworks-000347035692-n5238t-t500x500.jpg",
                 "album": "Movement",
                 "id": 0,
-                "TotalLengthMs": 163000
+                "duration": 163000
             },
             "num_users": 0,
             "id": 0
@@ -23,7 +23,7 @@
             "art": "https://i1.sndcdn.com/artworks-000347035692-n5238t-t500x500.jpg",
             "album": "Movement",
             "id": 1,
-            "TotalLengthMs": 163000
+            "duration": 163000
         }
     }
 ]

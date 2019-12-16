@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -19,7 +20,12 @@ func HandleSafeSend(con *structures.ConnectionObject) {
 	for data := range con.Txd {
 		con.Socket.WriteJSON(&data)
 	}
-	log.Printf("%d: Sending thread ending...", con.Client.Id)
+
+	log.Printf("%d: Sending thread ending...Polling:%v", con.Client.Id, con.Polling)
+	if !con.Polling {
+		log.Printf("%d Not polling -- Closing channel")
+		close(con.Txd)
+	}
 }
 
 func ReadChannels() {
@@ -36,7 +42,7 @@ func ReadChannels() {
 
 	json.Unmarshal(byteData, &channels)
 
-	log.Printf("%v", channels)
+	//log.Printf("SongTime: %d", channels[0].Song.TotalLengthMs)
 
 	CHANNELS = &channels
 }
@@ -60,7 +66,6 @@ func HandleNewConnection(con *structures.ConnectionObject) {
 			log.Printf("%d: Error reading from ws from client", con.Client.Id)
 			con.Disconnected = true
 			con.Socket.Close()
-			close(con.Txd)
 			break
 		}
 
@@ -110,6 +115,17 @@ func handleChannelJoin(con *structures.ConnectionObject, c structures.ChannelPay
 		163000,
 	}
 
+	var lock sync.Mutex
+
+	lock.Lock()
+	if con.Client.ChannelId == c.Id {
+		log.Printf("%d: Attempted to join already joined channel!", con.Client.Id)
+		return
+	}
+
+	con.Client.ChannelId = c.Id
+	lock.Unlock()
+
 	var cnn structures.ChannelPayload
 	cnn.NowPlaying = s
 	cnn.Id = c.Id
@@ -136,28 +152,21 @@ func handleChannelJoin(con *structures.ConnectionObject, c structures.ChannelPay
 		theChannel.Users = make([]structures.ConnectionObject, MAX_USERS_PER_CHANNEL)
 	}
 
-	//theChannel.Users = append(theChannel.Users, *con)
-	userDuplicate := false
-
-	for _, user := range theChannel.Users {
-		if user.Client.Id == con.Client.Id {
-			userDuplicate = true
-		}
-	}
-
-	if !userDuplicate {
-		theChannel.Users = append(theChannel.Users, *con)
-		go StartSyncPackets(c.Id, con)
-	} else {
-		log.Printf("Duplicate User Found!!")
-	}
+	theChannel.Users = append(theChannel.Users, *con)
+	go StartSyncPackets(c.Id, con)
 
 }
 
 func StartSyncPackets(channelId int, con *structures.ConnectionObject) {
 	channel := GetChannelByID(channelId)
-
+	log.Printf("%d: Starting Syncing...", con.Client.Id)
+	//log.Printf("SONG: %v", channel.Song)
+	con.Polling = true
 	for {
+		if con.Disconnected {
+			close(con.Txd)
+			break
+		}
 		time.Sleep(100 * time.Millisecond)
 		pkt := &structures.TimeSyncPayload{
 			channelId,

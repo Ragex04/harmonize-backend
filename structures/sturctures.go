@@ -24,7 +24,7 @@ type SongPayload struct {
 	Art           string `json:"art"`
 	Album         string `json:"album"`
 	Id            int    `json:"id"`
-	TotalLengthMs int64
+	TotalLengthMs int64  `json:"duration"`
 }
 
 type ClientPayload struct {
@@ -69,6 +69,7 @@ type ConnectionObject struct {
 	Client       ClientPayload
 	Txd          chan map[string]interface{}
 	Disconnected bool
+	Polling      bool
 }
 
 type ChannelObject struct {
