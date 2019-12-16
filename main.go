@@ -37,7 +37,7 @@ func main() {
 	router.HandleFunc("/ws", createNewWebsocket)
 
 	spa := structures.SinglePageAppHandler{
-		StaticPath: "../web-audio-stream-sync/frontend/build/",
+		StaticPath: "./wwwroot",
 		IndexPath:  "index.html",
 	}
 	router.PathPrefix("/").Handler(spa)
