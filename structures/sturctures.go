@@ -13,6 +13,10 @@ import (
 // =============================================
 // WS TRANSFER OBJECTS
 // =============================================
+type BasicMessage struct {
+	MsgType string `json:"type"`
+}
+
 type SongPayload struct {
 	Title         string `json:"title"`
 	Artist        string `json:"artist"`
@@ -36,11 +40,12 @@ type ChannelMessagePayload struct {
 
 type ChannelPayload struct {
 	JoinTimestamp int64       `json:"join_timestamp"`
-	JoinClientId  int         `json:"join_client_id"`
 	Name          string      `json:"name"`
-	NowPlaying    SongPayload `json:"now_playing"`
+	NowPlaying    SongPayload `json:"song"`
 	NumUsers      int         `json:"num_users"`
 	Id            int         `json:"id"`
+	Offset        int64       `json:"offset"`
+	Timestamp     int64       `json:"timestamp"`
 }
 
 type TimeSyncPayload struct {

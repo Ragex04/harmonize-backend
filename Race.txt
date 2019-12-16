@@ -1,0 +1,216 @@
+2019/12/15 22:27:27 Server starting on port: 8000
+2019/12/15 22:27:40 New WS Requested!! Added client: 498081
+2019/12/15 22:27:40 Got CHANNEL:JOIN
+2019/12/15 22:27:40 Got CHANNEL:JOIN
+2019/12/15 22:27:40 Sending join msg
+2019/12/15 22:27:40 Sending join msg
+==================
+WARNING: DATA RACE
+Read at 0x00c00015e078 by goroutine 12:
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:472 +0x5e
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00015e078 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:516 +0xdd
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00012e320 by goroutine 12:
+  github.com/gorilla/websocket.(*messageWriter).Close()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:721 +0x47
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:473 +0x4bd
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00012e320 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:512 +0x6b
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00012e300 by goroutine 12:
+  github.com/gorilla/websocket.(*messageWriter).flushFrame()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:550 +0x55
+  github.com/gorilla/websocket.(*messageWriter).Close()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:724 +0xba
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:473 +0x4bd
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00012e300 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:512 +0x6b
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00012e310 by goroutine 12:
+  github.com/gorilla/websocket.(*messageWriter).flushFrame()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:551 +0x7d
+  github.com/gorilla/websocket.(*messageWriter).Close()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:724 +0xba
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:473 +0x4bd
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00012e310 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:512 +0x6b
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00012e318 by goroutine 12:
+  github.com/gorilla/websocket.(*messageWriter).flushFrame()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:554 +0xa6
+  github.com/gorilla/websocket.(*messageWriter).Close()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:724 +0xba
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:473 +0x4bd
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00012e318 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:512 +0x6b
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00012e308 by goroutine 12:
+  github.com/gorilla/websocket.(*messageWriter).flushFrame()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:563 +0x1d8
+  github.com/gorilla/websocket.(*messageWriter).Close()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:724 +0xba
+  github.com/gorilla/websocket.(*Conn).beginMessage()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:473 +0x4bd
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:513 +0xae
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Previous write at 0x00c00012e308 by goroutine 11:
+  github.com/gorilla/websocket.(*Conn).NextWriter()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/conn.go:512 +0x6b
+  github.com/gorilla/websocket.(*Conn).WriteJSON()
+      /Users/admin/go/pkg/mod/github.com/gorilla/websocket@v1.4.1/json.go:24 +0x59
+  harmonize-server/connections.handleChannelJoin()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:76 +0x2da
+  harmonize-server/connections.handleChannelMessage()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:46 +0x219
+
+Goroutine 12 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+
+Goroutine 11 (running) created at:
+  harmonize-server/connections.HandleNewConnection()
+      /Users/admin/harmonize/harmonize-backend/connections/connections.go:33 +0x393
+==================

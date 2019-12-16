@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"harmonize-server/connections"
 	"harmonize-server/structures"
 	"log"
 	"math/rand"
@@ -16,22 +17,6 @@ import (
 const PORT int = 8000
 
 var upgrader = websocket.Upgrader{}
-
-func RecvMsgs(con *structures.ConnectionObject) {
-	for {
-		_, msg, err := con.Socket.ReadMessage()
-		if err != nil {
-			log.Printf("Error reading from ws from client: %d", con.Client.Id)
-		}
-		log.Printf("Got: %s", string(msg))
-		con.Recvd <- msg
-
-	}
-}
-
-func handleConnection(con *structures.ConnectionObject) {
-	go RecvMsgs(con)
-}
 
 func createNewWebsocket(w http.ResponseWriter, r *http.Request) {
 
@@ -53,7 +38,7 @@ func createNewWebsocket(w http.ResponseWriter, r *http.Request) {
 		false,
 	}
 	log.Printf("New WS Requested!! Added client: %d", con.Client.Id)
-	handleConnection(&con)
+	go connections.HandleNewConnection(&con)
 }
 
 func main() {
