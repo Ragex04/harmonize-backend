@@ -9,11 +9,26 @@ import (
 
 const HOST string = "http://localhost:8000/"
 
+func HandleSafeSend(con *structures.ConnectionObject) {
+	for data := range con.Txd {
+		if con.Disconnected == true {
+			break
+		}
+		con.Socket.WriteJSON(&data)
+	}
+	log.Printf("%d: Sending thread ending...", con.Client.Id)
+}
+
 func HandleNewConnection(con *structures.ConnectionObject) {
+	go HandleSafeSend(con)
 	for {
 		_, msg, err := con.Socket.ReadMessage()
 		if err != nil {
-			log.Printf("Error reading from ws from client: %d", con.Client.Id)
+			log.Printf("%d: Error reading from ws from client", con.Client.Id)
+			con.Disconnected = true
+			con.Socket.Close()
+			close(con.Txd)
+			break
 		}
 
 		var msgType structures.BasicMessage
@@ -26,12 +41,12 @@ func HandleNewConnection(con *structures.ConnectionObject) {
 		mtype = typeaction[0]
 		action = typeaction[1]
 
-		log.Printf("Got %s:%s", mtype, action)
+		log.Printf("%d: Got %s:%s", con.Client.Id, mtype, action)
 
 		switch mtype {
 		case "CHANNEL":
-			handleChannelMessage(con, msg, action)
-			//go handleChannelMessage(con, msg, action)
+			//handleChannelMessage(con, msg, action)
+			go handleChannelMessage(con, msg, action)
 		default:
 			log.Printf("ERROR: No messgae handler of type: %s", mtype)
 		}
@@ -66,14 +81,12 @@ func handleChannelJoin(con *structures.ConnectionObject, c structures.ChannelPay
 	cnn.NowPlaying = s
 	cnn.Id = 1
 	cnn.Offset = structures.NowInMs() - c.JoinTimestamp
-	log.Printf("Sending join msg")
 
 	yeet := make(map[string]interface{})
 
-	//payload, _ := json.Marshal(cnn)
 	yeet["type"] = "CHANNEL/INFO"
 	yeet["payload"] = cnn
 
-	con.Socket.WriteJSON(&yeet)
+	con.Txd <- yeet
 
 }

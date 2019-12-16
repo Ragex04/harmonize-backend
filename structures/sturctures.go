@@ -66,7 +66,7 @@ type ErrorMessage struct {
 type ConnectionObject struct {
 	Socket       *websocket.Conn
 	Client       ClientPayload
-	Recvd        chan []byte
+	Txd          chan map[string]interface{}
 	Disconnected bool
 }
 

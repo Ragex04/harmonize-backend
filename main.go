@@ -34,7 +34,7 @@ func createNewWebsocket(w http.ResponseWriter, r *http.Request) {
 			-1,
 			"TmpClient",
 		},
-		make(chan []byte, 10),
+		make(chan map[string]interface{}, 10),
 		false,
 	}
 	log.Printf("New WS Requested!! Added client: %d", con.Client.Id)
