@@ -39,13 +39,14 @@ type ChannelMessagePayload struct {
 }
 
 type ChannelPayload struct {
-	JoinTimestamp int64       `json:"join_timestamp"`
-	Name          string      `json:"name"`
-	NowPlaying    SongPayload `json:"song"`
-	NumUsers      int         `json:"num_users"`
-	Id            int         `json:"id"`
-	Offset        int64       `json:"offset"`
-	Timestamp     int64       `json:"timestamp"`
+	JoinTimestamp int64         `json:"join_timestamp"`
+	Name          string        `json:"name"`
+	NowPlaying    SongPayload   `json:"song"`
+	NumUsers      int           `json:"num_users"`
+	Id            int           `json:"id"`
+	Offset        int64         `json:"offset"`
+	Timestamp     int64         `json:"timestamp"`
+	VoteOptions   []SongPayload `json:"votes"`
 }
 
 type TimeSyncPayload struct {

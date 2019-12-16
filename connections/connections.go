@@ -11,9 +11,6 @@ const HOST string = "http://localhost:8000/"
 
 func HandleSafeSend(con *structures.ConnectionObject) {
 	for data := range con.Txd {
-		if con.Disconnected == true {
-			break
-		}
 		con.Socket.WriteJSON(&data)
 	}
 	log.Printf("%d: Sending thread ending...", con.Client.Id)
@@ -81,6 +78,7 @@ func handleChannelJoin(con *structures.ConnectionObject, c structures.ChannelPay
 	cnn.NowPlaying = s
 	cnn.Id = 1
 	cnn.Offset = structures.NowInMs() - c.JoinTimestamp
+	cnn.VoteOptions = make([]structures.SongPayload, 1)
 
 	yeet := make(map[string]interface{})
 
